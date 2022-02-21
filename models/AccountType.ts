@@ -1,3 +1,11 @@
+/**
+ * @file Declares AccountType data type representing the account type of a user
+ */
+
+
+/**
+ * @enum {string} Enum representing account type of a user
+ */
 enum AccountType {
    PERSONAL = 'PERSONAL',
    ACADEMIC = 'ACADEMIC',

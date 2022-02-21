@@ -1,3 +1,6 @@
+/**
+ * @file Defines mongoose schema for documents in the users collection
+ */
 import mongoose from "mongoose";
 import Location from "../models/Location"
 

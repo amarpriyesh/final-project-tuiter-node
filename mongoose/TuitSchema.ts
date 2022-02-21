@@ -1,3 +1,6 @@
+/**
+ * @file Defines mongoose schema for documents in the tuits collection
+ */
 import mongoose, {Schema} from "mongoose";
 
 const TuitSchema = new mongoose.Schema({

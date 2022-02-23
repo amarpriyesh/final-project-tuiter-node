@@ -9,12 +9,12 @@ import TuitControllerI from "../interfaces/TuitControllerI";
  * @class TuitController Implements RESTful Web service API for tuits resource.
  * Defines the following HTTP endpoints:
  * <ul>
- *     <li>POST /tuits to create a new tuit instance</li>
+ *     <li>POST /users/:uid/tuits to create a new tuit instance</li>
  *     <li>GET /tuits to retrieve all the tuit instances</li>
- *     <li>GET /tuits/:tuitId' to retrieve a particular tuit instance</li>
- *     <li>GET /users/:userId/tuits to retrieve tuits for a given user </li>
- *     <li>PUT /api/tuits/:tid to modify an individual tuit instance </li>
- *     <li>DELETE /api/tuits/:tid to remove a particular tuit instance</li>
+ *     <li>GET /tuits/:tid' to retrieve a particular tuit instance</li>
+ *     <li>GET /users/:uid/tuits to retrieve tuits for a given user </li>
+ *     <li>PUT /tuits/:tid to modify an individual tuit instance </li>
+ *     <li>DELETE /tuits/:tid to remove a particular tuit instance</li>
  * </ul>
  * @property {TuitDao} tuitDao Singleton DAO implementing tuit CRUD operations
  * @property {TuitController} tuitController Singleton controller implementing
@@ -35,11 +35,11 @@ export default class TuitController implements TuitControllerI {
         if(TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
             app.get('/tuits', TuitController.tuitController.findAllTuits);
-            app.get('/users/:userId/tuits', TuitController.tuitController.findTuitsByUser);
-            app.get('/tuits/:tuitId', TuitController.tuitController.findTuitById);
-            app.post('/tuits', TuitController.tuitController.createTuit);
-            app.delete('/tuits/:tuitId', TuitController.tuitController.deleteTuit);
-            app.put('/tuits/:tuitId', TuitController.tuitController.updateTuit);
+            app.get('/users/:uid/tuits', TuitController.tuitController.findTuitsByUser);
+            app.get('/tuits/:tid', TuitController.tuitController.findTuitById);
+            app.post('/users/:uid/tuits', TuitController.tuitController.createTuit);
+            app.delete('/tuits/:tid', TuitController.tuitController.deleteTuit);
+            app.put('/tuits/:tid', TuitController.tuitController.updateTuit);
         }
         return TuitController.tuitController;
     }
@@ -63,7 +63,7 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON containing the tuit that matches the user ID
      */
     findTuitById = (req: Request, res: Response) =>
-        TuitController.tuitDao.findTuitById(req.params.tuitId)
+        TuitController.tuitDao.findTuitById(req.params.tid)
             .then(tuit => res.json(tuit));
 
     /**
@@ -74,7 +74,7 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON arrays containing the tuit objects
      */
     findTuitsByUser = (req: Request, res: Response) =>
-        TuitController.tuitDao.findTuitsByUser(req.params.userId)
+        TuitController.tuitDao.findTuitsByUser(req.params.uid)
             .then(tuits => res.json(tuits));
 
     /**
@@ -86,7 +86,7 @@ export default class TuitController implements TuitControllerI {
      * database
      */
     createTuit = (req: Request, res: Response) =>
-        TuitController.tuitDao.createTuit(req.body)
+        TuitController.tuitDao.createTuit(req.params.uid,req.body)
             .then(tuit => res.json(tuit));
 
     /**

@@ -40,47 +40,49 @@ export default class TuitDao implements TuitDaoI {
     /**
      * Uses TuitModel to retrieve all tuit documents that are posted by a particular user
      * from tuits collection
+     * @param {string} uid User's primary key
      * @returns Promise To be notified when the tuits are retrieved from
      * database
      */
-    async findTuitsByUser(userId: string): Promise<Tuit[]> {
-         return await TuitModel.find({postedBy: userId});
+    async findTuitsByUser(uid: string): Promise<Tuit[]> {
+         return await TuitModel.find({postedBy: uid});
     }
 
     /**
      * Uses TuitModel to retrieve single tuit document from tuits collection
-     * @param {string} tuitId Tuit's primary key
+     * @param {string} tid Tuit's primary key
      * @returns Promise To be notified when tuit is retrieved from the database
      */
-    async findTuitById(tuitId: string): Promise<Tuit> {
-        return await TuitModel.findById(tuitId);
+    async findTuitById(tid: string): Promise<Tuit> {
+        return await TuitModel.findById(tid);
     }
 
     /**
      * Inserts tuit instance into the database
+     * @param {string} uid User's primary key
      * @param {Tuit} tuit Instance to be inserted into the database
      * @returns Promise To be notified when tuit is inserted into the database
      */
-    async createTuit(tuit: Tuit): Promise<Tuit> {
-        return await TuitModel.create(tuit);
+    async createTuit(uid: string, tuit: Tuit): Promise<Tuit> {
+        return await TuitModel.create({...tuit,postedBy: uid});
     }
 
     /**
      * Removes tuit from the database.
-     * @param {string} tuitId Primary key of tuit to be removed
+     * @param {string} tid Primary key of tuit to be removed
      * @returns Promise To be notified when tuit is removed from the database
      */
-    async deleteTuit(tuitId: string):  Promise<any> {
-        return await TuitModel.deleteOne({_id: tuitId});
+    async deleteTuit(tid: string):  Promise<any> {
+        return await TuitModel.deleteOne({_id: tid});
     }
 
     /**
      * Updates tuit with new values in database
-     * @param {string} tuitId Primary key of tuit to be modified
+     * @param {string} tid Primary key of tuit to be modified
      * @param {Tuit} tuit Tuit object containing properties and their new values
      * @returns Promise To be notified when tuit is updated in the database
      */
-    async updateTuit(tuitId: string, tuit: Tuit): Promise<any> {
-        return await TuitModel.updateOne({_id: tuitId}, {$set: tuit});
+    async updateTuit(tid: string, tuit: Tuit): Promise<any> {
+        return await TuitModel.updateOne({_id: tid}, {$set: tuit});
     }
 }

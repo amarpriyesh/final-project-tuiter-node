@@ -9,7 +9,7 @@ import MessageControllerI from "../interfaces/MessageControllerI";
  * @class MessageController Implements RESTful Web service API for messages resource.
  * Defines the following HTTP endpoints:
  * <ul>
- *     <li>POST /messages to create a new message instance </li>
+ *     <li>POST /users/sender/:uid1/receiver/:uid2 to create a new message instance </li>
  *     <li>DELETE /messages/:mid to remove a particular message instance </li>
  *     <li>GET /users/:uid/messages/sent to retrieve all messages that a particular user has sent </li>
  *     <li>GET /users/:uid/messages/received to retrieve all messages that a particular user has received </li>
@@ -31,7 +31,7 @@ export default class MessageController implements MessageControllerI {
     public static getInstance = (app : Express): MessageController => {
         if (MessageController.messageController === null) {
             MessageController.messageController = new MessageController();
-            app.post("/messages",MessageController.messageController.userMessagesAnotherUser);
+            app.post("/users/sender/:uid1/receiver/:uid2",MessageController.messageController.userMessagesAnotherUser);
             app.delete("/messages/:mid",MessageController.messageController.userDeletesMessage);
             app.get("/users/:uid/messages/sent",MessageController.messageController.findAllMessagesSent);
             app.get("/users/:uid/messages/received",MessageController.messageController.findAllMessagesReceived);
@@ -52,7 +52,7 @@ export default class MessageController implements MessageControllerI {
      * database
      */
     userMessagesAnotherUser = (req: Request, res: Response) =>
-        MessageController.messageDao.userMessagesAnotherUser(req.body)
+        MessageController.messageDao.userMessagesAnotherUser(req.params.uid1,req.params.uid2,req.body)
             .then(message => res.json(message));
 
     /**

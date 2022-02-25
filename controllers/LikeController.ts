@@ -43,7 +43,8 @@ export default class LikeController implements LikeControllerI {
 
     /**
      * Retrieves all like relations to retrieve tuits liked by a particular user from the database .
-     * @param {Request} req Represents request from client
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user liked the tuits
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON arrays containing the like objects
      */
@@ -53,7 +54,8 @@ export default class LikeController implements LikeControllerI {
 
     /**
      * Retrieves all like relations to retrieve users that liked a particular tuit from the database .
-     * @param {Request} req Represents request from client
+     * @param {Request} req Represents request from client, including the path
+     * parameter tid representing the liked tuit
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON arrays containing the like objects
      */

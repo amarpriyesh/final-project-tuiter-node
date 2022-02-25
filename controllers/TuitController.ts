@@ -57,6 +57,7 @@ export default class TuitController implements TuitControllerI {
             .then(tuits => res.json(tuits));
 
     /**
+     * Retrieves a particular tuit by its primary key.
      * @param {Request} req Represents request from client, including path
      * parameter tuitId identifying the primary key of the tuit to be retrieved
      * @param {Response} res Represents response to client, including the
@@ -78,6 +79,7 @@ export default class TuitController implements TuitControllerI {
             .then(tuits => res.json(tuits));
 
     /**
+     * Creates a tuit instance.
      * @param {Request} req Represents request from client, including body
      * containing the JSON object for the new tuit to be inserted in the
      * database
@@ -90,6 +92,7 @@ export default class TuitController implements TuitControllerI {
             .then(tuit => res.json(tuit));
 
     /**
+     * Deletes a tuit instance.
      * @param {Request} req Represents request from client, including path
      * parameter tuitId identifying the primary key of the tuit to be removed
      * @param {Response} res Represents response to client, including status
@@ -100,6 +103,7 @@ export default class TuitController implements TuitControllerI {
             .then(status => res.send(status));
 
     /**
+     * Updates a tuit instance.
      * @param {Request} req Represents request from client, including path
      * parameter tuitId identifying the primary key of the tuit to be modified
      * @param {Response} res Represents response to client, including status

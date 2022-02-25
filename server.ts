@@ -25,7 +25,6 @@ import MessageController from "./controllers/MessageController";
 
 
 const app = express();
-// mongoose.connect('mongodb://localhost:27017/tuits-trial2');
 mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@cluster0.vhlkj.mongodb.net/test');
 app.use(bodyParser.json())
 

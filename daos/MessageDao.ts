@@ -29,6 +29,8 @@ export default class MessageDao implements MessageDaoI {
 
     /**
      * Inserts a message instance into the database
+     * @param {string} uid1 ID (primary key) of the sender
+     * @param {string} uid1 ID (primary key) of the receiver
      * @param {Message} message Instance to be inserted into the database
      * @returns Promise To be notified when message instance is inserted into the database
      */

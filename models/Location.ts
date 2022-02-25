@@ -4,7 +4,7 @@
  */
 
 /**
- * @typedef Like Represents location of a user
+ * @typedef Location Represents location of a user
  *
  * @property {number} latitude the latitude coordinate
  * @property {number} longitude the longitude coordinate

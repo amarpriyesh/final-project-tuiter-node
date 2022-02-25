@@ -43,7 +43,8 @@ export default class BookmarkController implements BookmarkControllerI {
 
     /**
      * Retrieves all bookmark relations to retrieve bookmarks liked by a particular user from the database .
-     * @param {Request} req Represents request from client
+     * @param {Request} req Represents request from client, including the path
+     * parameter tid representing the bookmarked tuit
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON arrays containing the bookmark objects
      */
@@ -53,7 +54,8 @@ export default class BookmarkController implements BookmarkControllerI {
 
     /**
      * Retrieves all bookmark relations to retrieve users that bookmarked a particular tuit from the database .
-     * @param {Request} req Represents request from client
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user that bookmarked the tuits
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON arrays containing the bookmark objects
      */

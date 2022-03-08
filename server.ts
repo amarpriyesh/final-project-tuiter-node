@@ -25,7 +25,7 @@ import MessageController from "./controllers/MessageController";
 
 
 const app = express();
-mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@cluster0.vhlkj.mongodb.net/test');
+mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'tuiterclustera3.d6d4l.mongodb.net/test');
 app.use(bodyParser.json())
 
 app.get('/hello', (req, res) =>

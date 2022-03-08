@@ -34,7 +34,7 @@ export default class TuitDao implements TuitDaoI {
      * database
      */
     async findAllTuits(): Promise<Tuit[]> {
-        return await TuitModel.find();
+        return await TuitModel.find().populate("postedBy").exec();
     }
 
     /**
@@ -45,7 +45,7 @@ export default class TuitDao implements TuitDaoI {
      * database
      */
     async findTuitsByUser(uid: string): Promise<Tuit[]> {
-         return await TuitModel.find({postedBy: uid});
+         return await TuitModel.find({postedBy: uid}).populate("postedBy").exec();
     }
 
     /**
@@ -54,7 +54,7 @@ export default class TuitDao implements TuitDaoI {
      * @returns Promise To be notified when tuit is retrieved from the database
      */
     async findTuitById(tid: string): Promise<Tuit> {
-        return await TuitModel.findById(tid);
+        return await TuitModel.findById(tid)..populate("postedBy").exec();
     }
 
     /**

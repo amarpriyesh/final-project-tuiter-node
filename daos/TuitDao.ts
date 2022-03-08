@@ -54,7 +54,7 @@ export default class TuitDao implements TuitDaoI {
      * @returns Promise To be notified when tuit is retrieved from the database
      */
     async findTuitById(tid: string): Promise<Tuit> {
-        return await TuitModel.findById(tid)..populate("postedBy").exec();
+        return await TuitModel.findById(tid).populate("postedBy").exec();
     }
 
     /**

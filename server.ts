@@ -22,11 +22,13 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
+var cors = require('cors') //added
 
 
 const app = express();
 mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterclustera3.d6d4l.mongodb.net/test');
 app.use(bodyParser.json())
+app.use(cors()) //added
 
 app.get('/hello', (req, res) =>
     res.send('Hello World!'));

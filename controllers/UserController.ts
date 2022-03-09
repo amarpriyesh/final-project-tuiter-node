@@ -39,18 +39,18 @@ export default class UserController implements UserControllerI {
             app.post('/users', UserController.userController.createUser);
             app.delete('/users/:userid', UserController.userController.deleteUser);
             app.put('/users/:userid', UserController.userController.updateUser);
-            app.delete("/api/users",UserController.userController.deleteAllUsers);
+            app.delete("/users",UserController.userController.deleteAllUsers);
 
-            app.post("/api/login",UserController.userController.login);
+            app.post("/login",UserController.userController.login);
 
             // for testing. Not RESTful
-            app.get("/api/users/create",
+            app.get("/users/create",
               UserController.userController.createUser);
-            app.get("/api/users/id/:uid/delete",
+            app.get("/users/id/:uid/delete",
               UserController.userController.deleteUser);
-            app.get("/api/users/username/:username/delete",
+            app.get("/users/username/:username/delete",
               UserController.userController.deleteUsersByUsername);
-            app.get("/api/users/delete",
+            app.get("/users/delete",
               UserController.userController.deleteAllUsers);
         }
         return UserController.userController;

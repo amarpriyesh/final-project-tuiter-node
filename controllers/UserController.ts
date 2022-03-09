@@ -121,12 +121,12 @@ export default class UserController implements UserControllerI {
         UserController.userDao.deleteUsersByUsername(req.params.username)
             .then(status => res.send(status));
 
-//     login = (req: Request, res: Response) =>
-//         UserController.userDao
-//             .findUserByCredentials(req.body.username, req.body.password)
-//             .then(user => {
-//                 res.json(user)
-//             });
+    login = (req: Request, res: Response) =>
+        UserController.userDao
+            .findUserByCredentials(req.body.username, req.body.password)
+            .then(user => {
+                res.json(user)
+            });
 //
 //     register = (req: Request, res: Response) =>
 //         UserController.userDao.findUserByUsername(req.body.username)

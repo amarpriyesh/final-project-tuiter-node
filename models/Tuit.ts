@@ -3,6 +3,7 @@
  * by various users.
  */
 import User from "./User"
+import Stats from "./Stats"
 /**
  * @typedef Tuit Represents a Tuit posted by a user
  *

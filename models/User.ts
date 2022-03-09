@@ -35,6 +35,6 @@ export default interface User {
    maritalStatus?: MaritalStatus,
    biography?: string ,
    dateOfBirth?: Date ,
-   joinedOn: Date,
+   joinedOn?: Date,
    location?: Location
 }

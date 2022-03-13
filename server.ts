@@ -30,8 +30,8 @@ mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterc
 app.use(bodyParser.json())
 app.use(cors()) //added
 
-app.get('/hello', (req, res) =>
-    res.send('Hello World!'));
+app.get('/', (req, res) =>
+    res.send('Welcome!'));
 
 
 const userController = UserController.getInstance(app);

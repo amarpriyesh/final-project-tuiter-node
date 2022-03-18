@@ -39,7 +39,7 @@ export default class UserController implements UserControllerI {
             app.post('/users', UserController.userController.createUser);
             app.delete('/users/:userid', UserController.userController.deleteUser);
             app.put('/users/:userid', UserController.userController.updateUser);
-            app.delete("/users",UserController.userController.deleteAllUsers);
+//             app.delete("/users",UserController.userController.deleteAllUsers);
 
             app.post("/login",UserController.userController.login);
 
@@ -50,8 +50,8 @@ export default class UserController implements UserControllerI {
               UserController.userController.deleteUser);
             app.get("/users/username/:username/delete",
               UserController.userController.deleteUsersByUsername);
-            app.get("/users/delete",
-              UserController.userController.deleteAllUsers);
+//             app.get("/users/delete",
+//               UserController.userController.deleteAllUsers);
         }
         return UserController.userController;
     }
@@ -113,9 +113,9 @@ export default class UserController implements UserControllerI {
         UserController.userDao.updateUser(req.params.userid, req.body)
             .then(status => res.send(status));
 
-    deleteAllUsers = (req: Request, res: Response) =>
-        UserController.userDao.deleteAllUsers()
-            .then((status) => res.send(status));
+//     deleteAllUsers = (req: Request, res: Response) =>
+//         UserController.userDao.deleteAllUsers()
+//             .then((status) => res.send(status));
 
     deleteUsersByUsername = (req: Request, res: Response) =>
         UserController.userDao.deleteUsersByUsername(req.params.username)

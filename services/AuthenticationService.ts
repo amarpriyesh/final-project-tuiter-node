@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const userDao: UserDao = UserDao.getInstance();
 
-mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterclustera3.d6d4l.mongodb.net/test');
+mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterclustera4.coyaj.mongodb.net/test');
 
 
 export const login = async (u: string, p: string) => {

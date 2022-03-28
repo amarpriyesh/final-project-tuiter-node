@@ -22,14 +22,37 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
-var cors = require('cors') //added
+import AuthenticationController from "./controllers/AuthenticationController";
+import SessionController from "./controllers/SessionController";
 
+var cors = require('cors'); //added
+const session = require("express-session");
+
+mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterclustera4.coyaj.mongodb.net/test');
 
 const app = express();
-mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterclustera3.d6d4l.mongodb.net/test');
-app.use(bodyParser.json())
-app.use(cors()) //added
+app.use(express.json());
+app.use(cors({
+    credentials : true,
+    origin : 'http://localhost:3000'
+})); //added
 
+const SECRET = 'process.env.SECRET';
+let sess = {
+    secret : SECRET,
+    saveUninitialized : true,
+    resave : true,
+    cookie : {
+        secure : false
+    }
+}
+
+if(process.env.ENVIRONMENT === 'PRODUCTION') {
+    app.set('trust proxy',1)
+    sess.cookie.secure = true;
+}
+
+app.use(session(sess))
 app.get('/', (req, res) =>
     res.send('Welcome!'));
 
@@ -40,6 +63,7 @@ const likeController = LikeController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
-
+AuthenticationController(app);
+SessionController(app);
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);

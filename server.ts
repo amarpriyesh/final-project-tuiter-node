@@ -52,7 +52,7 @@ if(process.env.ENVIRONMENT === 'PRODUCTION') {
     sess.cookie.secure = true;
 }
 
-app.use(session(sess))
+app.use(session(sess));
 app.get('/', (req, res) =>
     res.send('Welcome!'));
 
@@ -63,7 +63,9 @@ const likeController = LikeController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
-AuthenticationController(app);
 SessionController(app);
+AuthenticationController(app);
+
+
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);

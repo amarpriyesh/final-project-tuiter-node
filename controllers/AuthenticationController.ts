@@ -18,7 +18,7 @@ const AuthenticationController = (app: Express) => {
 
         if (match) {
             existingUser.password = '*****';
-
+            // @ts-ignore
             req.session['profile'] = existingUser;
             res.json(existingUser);
         } else {
@@ -41,7 +41,7 @@ const AuthenticationController = (app: Express) => {
             const insertedUser = await userDao
                 .createUser(newUser);
             insertedUser.password = '';
-
+            // @ts-ignore
             req.session['profile'] = insertedUser;
             res.json(insertedUser);
         }

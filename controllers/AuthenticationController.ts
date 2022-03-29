@@ -9,7 +9,7 @@ const AuthenticationController = (app: Express) => {
 
     const login = async (req: Request, res: Response) => {
         const user = req.body;
-        const username = user.username;
+        const username = user.userName;
         const password = user.password;
         console.log(password)
         const existingUser = await userDao
@@ -33,7 +33,7 @@ const AuthenticationController = (app: Express) => {
         newUser.password = hash;
 
         const existingUser = await userDao
-            .findUserByUsername(req.body.username);
+            .findUserByUsername(req.body.userName);
         if (existingUser) {
             res.sendStatus(403);
             return;

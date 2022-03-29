@@ -37,7 +37,7 @@ app.use(cors({
     origin :'https://tiny-trifle-31e1c5.netlify.app'
 })); //added
 
-const SECRET = 'process.env.SECRET';
+const SECRET = process.env.SECRET;
 let sess = {
     secret : SECRET,
     saveUninitialized : true,

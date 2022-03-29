@@ -31,7 +31,7 @@ const session = require("express-session");
 mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterclustera4.coyaj.mongodb.net/test');
 
 const app = express();
-app.use(express.json());
+
 app.use(cors({
     credentials : true,
     origin :'https://tiny-trifle-31e1c5.netlify.app'
@@ -53,6 +53,7 @@ if(process.env.ENVIRONMENT === 'PRODUCTION') {
 }
 
 app.use(session(sess));
+app.use(express.json());
 app.get('/', (req, res) =>
     res.send('Welcome!'));
 

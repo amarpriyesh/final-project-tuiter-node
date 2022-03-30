@@ -43,14 +43,13 @@ let sess = {
     saveUninitialized : true,
     resave : true,
     cookie : {
-        sameSite: process.env.ENVIRONMENT === "PRODUCTION" ? 'none' : 'lax',
-        secure: process.env.ENVIRONMENT === "PRODUCTION",
+        secure : false
     }
 }
 
 if(process.env.ENVIRONMENT === 'PRODUCTION') {
     app.set('trust proxy',1)
-
+    sess.cookie.secure = true;
 }
 
 app.use(session(sess));

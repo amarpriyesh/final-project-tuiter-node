@@ -24,7 +24,7 @@ import Location from "./Location";
  * @property {Location} location location of the user
  */
 export default interface User {
-   username: string,
+   userName: string,
    password: string ,
    firstName?: string,
    lastName?: string ,

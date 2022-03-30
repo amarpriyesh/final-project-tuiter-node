@@ -24,7 +24,7 @@ export const register = async (u: string, p: string, e: string) => {
     if (user) {
       throw 'User already exists';
     }
-    const newUser = await userDao.createUser({username: u, password: p, email: e});
+    const newUser = await userDao.createUser({userName: u, password: p, email: e});
     return newUser;
   } catch (e) {
     return e;

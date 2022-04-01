@@ -113,8 +113,8 @@ export default class LikeController implements LikeControllerI {
      * database
      */
     userTogglesTuitLikes = async (req: Request, res: Response) => {
-        const likeDao = LikeController.likeDao;
-        const tuitDao = LikeController.tuitDao;
+//         const likeDao = LikeController.likeDao;
+//         const tuitDao = LikeController.tuitDao;
         const uid = req.params.uid;
         const tid = req.params.tid;
         // @ts-ignore
@@ -122,7 +122,7 @@ export default class LikeController implements LikeControllerI {
         const userId = uid === "me" && profile ?
             profile._id : uid;
         try {
-            const userAlreadyLikedTuit = await likeDao.findUserLikesTuit(userId, tid);
+            const userAlreadyLikedTuit = await LikeController.likeDao.findUserLikesTuit(userId, tid);
             console.log(userId);
             console.log(tid);
 //             const userAlreadyLikedTuit = false;

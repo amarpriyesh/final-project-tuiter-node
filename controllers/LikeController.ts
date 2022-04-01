@@ -42,7 +42,8 @@ export default class LikeController implements LikeControllerI {
 //             app.delete("/users/:uid/likes/:tid", LikeController.likeController.userUnlikesTuit);
             app.put("/users/:uid/likes/:tid", LikeController.likeController.userTogglesTuitLikes);
             app.put("/users/:uid/dislikes/:tid", LikeController.likeController.userTogglesTuitDislikes);
-
+            app.get("/users/:uid/likes/:tid", LikeController.likeController.findUserLikesTuit);
+            app.get("/users/:uid/dislikes/:tid", LikeController.likeController.findUserDislikesTuit);
         }
         return LikeController.likeController;
     }
@@ -193,5 +194,41 @@ export default class LikeController implements LikeControllerI {
         } catch (e) {
             res.sendStatus(404);
         }
+    }
+
+    findUserLikesTuit = (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        const tid = req.params.tid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === "me" && profile ? profile._id : uid;
+
+        if (userId === "me") {
+
+        } else {
+            LikeController.likeDao.findUserLikesTuit(userId,tid)
+                .then(like => {
+                    res.json(like);
+                });
+        }
+
+    }
+
+    findUserDislikesTuit = (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        const tid = req.params.tid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === "me" && profile ? profile._id : uid;
+
+        if (userId === "me") {
+
+        } else {
+            LikeController.dislikeDao.findUserDislikesTuit(userId,tid)
+                .then(dislike => {
+                    res.json(dislike);
+                });
+        }
+
     }
 };

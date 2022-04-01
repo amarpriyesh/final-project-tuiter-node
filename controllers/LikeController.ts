@@ -3,6 +3,7 @@
  */
 import {Express, Request, Response} from "express";
 import LikeDao from "../daos/LikeDao";
+import TuitDao from "../daos/TuitDao";
 import LikeControllerI from "../interfaces/LikeControllerI";
 
 /**
@@ -20,6 +21,8 @@ import LikeControllerI from "../interfaces/LikeControllerI";
  */
 export default class LikeController implements LikeControllerI {
     private static likeDao: LikeDao = LikeDao.getInstance();
+    private static tuitDao: TuitDao = TuitDao.getInstance();
+
     private static likeController: LikeController | null = null;
 
     /**

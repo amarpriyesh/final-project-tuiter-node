@@ -119,22 +119,18 @@ export default class LikeController implements LikeControllerI {
         const tid = req.params.tid;
         // @ts-ignore
         const profile = req.session['profile'];
-        const userId = uid === "me" && profile ?
-            profile._id : uid;
+        const userId = uid === "me" && profile ? profile._id : uid;
         try {
-//             const userAlreadyLikedTuit = await LikeController.likeDao.findUserLikesTuit(userId, tid);
-//             console.log(userId);
-//             console.log(tid);
-            const userAlreadyLikedTuit = false;
+            const userAlreadyLikedTuit = await LikeController.likeDao.findUserLikesTuit(userId, tid);
             const howManyLikedTuit = await LikeController.likeDao.countHowManyLikedTuit(tid);
             let tuit = await LikeController.tuitDao.findTuitById(tid);
-//             if (userAlreadyLikedTuit) {
-//                 await LikeController.likeDao.userUnlikesTuit(userId, tid);
-//                 tuit.stats.likes = howManyLikedTuit - 1;
-//             } else {
-//                 await LikeController.likeDao.userLikesTuit(userId, tid);
-//                 tuit.stats.likes = howManyLikedTuit + 1;
-//             };
+            if (userAlreadyLikedTuit) {
+                await LikeController.likeDao.userUnlikesTuit(userId, tid);
+                tuit.stats.likes = howManyLikedTuit - 1;
+            } else {
+                await LikeController.likeDao.userLikesTuit(userId, tid);
+                tuit.stats.likes = howManyLikedTuit + 1;
+            };
             await LikeController.tuitDao.updateLikes(tid, tuit.stats);
             res.sendStatus(200);
         } catch (e) {

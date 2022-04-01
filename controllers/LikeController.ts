@@ -113,13 +113,8 @@ export default class LikeController implements LikeControllerI {
      * database
      */
     userTogglesTuitLikes = async (req: Request, res: Response) => {
-//         const likeDao = LikeController.likeDao;
-//         const tuitDao = LikeController.tuitDao;
-//         const uid = req.params.uid;
+
         const tid = req.params.tid;
-//         // @ts-ignore
-//         const profile = req.session['profile'];
-//         const userId = uid === "me" && profile ? profile._id : uid;
 
         // @ts-ignore
         let userId = req.params.uid === "me" && req.session['profile'] ?

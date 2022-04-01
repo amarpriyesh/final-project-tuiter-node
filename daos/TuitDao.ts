@@ -3,6 +3,7 @@
  * to integrate with MongoDB
  */
 import Tuit from "../models/Tuit";
+import Stats from "../models/Stats";
 import TuitModel from "../mongoose/TuitModel";
 import TuitDaoI from "../interfaces/TuitDaoI";
 
@@ -87,7 +88,7 @@ export default class TuitDao implements TuitDaoI {
     }
 
 
-    updateLikes = async (tid: string, newStats: any): Promise<any> =>
+    updateLikes = async (tid: string, newStats: Stats): Promise<any> =>
         TuitModel.updateOne(
             {_id: tid},
             {$set: {stats: newStats}}

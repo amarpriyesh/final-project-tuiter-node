@@ -126,6 +126,10 @@ export default class LikeController implements LikeControllerI {
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
 
+        if (userId === "me") {
+            res.sendStatus(503);
+            return;
+        }
         try {
             const userAlreadyLikedTuit = await LikeController.likeDao.findUserLikesTuit(userId, tid);
             const howManyLikedTuit = await LikeController.likeDao.countHowManyLikedTuit(tid);

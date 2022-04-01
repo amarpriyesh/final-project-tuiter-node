@@ -135,7 +135,7 @@ export default class LikeController implements LikeControllerI {
 //                 await LikeController.likeDao.userLikesTuit(userId, tid);
 //                 tuit.stats.likes = howManyLikedTuit + 1;
 //             };
-            await tuitDao.updateLikes(tid, tuit.stats);
+            await LikeController.tuitDao.updateLikes(tid, tuit.stats);
             res.sendStatus(200);
         } catch (e) {
             res.sendStatus(404);

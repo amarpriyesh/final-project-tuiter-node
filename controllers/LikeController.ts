@@ -204,7 +204,7 @@ export default class LikeController implements LikeControllerI {
         const userId = uid === "me" && profile ? profile._id : uid;
 
         if (userId === "me") {
-
+            res.json({});
         } else {
             LikeController.likeDao.findUserLikesTuit(userId,tid)
                 .then(like => {
@@ -222,7 +222,7 @@ export default class LikeController implements LikeControllerI {
         const userId = uid === "me" && profile ? profile._id : uid;
 
         if (userId === "me") {
-
+            res.json({});
         } else {
             LikeController.dislikeDao.findUserDislikesTuit(userId,tid)
                 .then(dislike => {

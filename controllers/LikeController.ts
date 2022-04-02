@@ -51,28 +51,29 @@ export default class LikeController implements LikeControllerI {
     private constructor() {}
 
     /**
-     * Retrieves all like relations to retrieve tuits liked by a particular user from the database .
-     * @param {Request} req Represents request from client, including the path
-     * parameter uid representing the user liked the tuits
-     * @param {Response} res Represents response to client, including the
-     * body formatted as JSON arrays containing the like objects
-     */
-     findAllTuitsLikedByUser = (req: Request, res: Response) =>
-         LikeController.likeDao.findAllTuitsLikedByUser(req.params.uid)
-             .then(likes => res.json(likes));
-
-    /**
-     * Retrieves all like relations to retrieve users that liked a particular tuit from the database .
+     * Retrieves all users that liked a tuit from the database
      * @param {Request} req Represents request from client, including the path
      * parameter tid representing the liked tuit
      * @param {Response} res Represents response to client, including the
-     * body formatted as JSON arrays containing the like objects
+     * body formatted as JSON arrays containing the user objects
      */
-    findAllUsersThatLikedTuit = (req: Request, res: Response) => {
+    findAllUsersThatLikedTuit = (req: Request, res: Response) =>
+        LikeController.likeDao.findAllUsersThatLikedTuit(req.params.tid)
+            .then(likes => res.json(likes));
+
+    /**
+     * Retrieves all tuits liked by a user from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user liked the tuits
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the tuit objects that were liked
+     */
+    findAllTuitsLikedByUser = (req: Request, res: Response) => {
         const uid = req.params.uid;
         // @ts-ignore
         const profile = req.session['profile'];
-        const userId = uid === "me" && profile ? profile._id : uid;
+        const userId = uid === "me" && profile ?
+            profile._id : uid;
 
         LikeController.likeDao.findAllTuitsLikedByUser(userId)
             .then(likes => {
@@ -81,8 +82,6 @@ export default class LikeController implements LikeControllerI {
                 res.json(tuitsFromLikes);
             });
     }
-
-
 
     /**
      * Creates a new like instance

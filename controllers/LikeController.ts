@@ -44,6 +44,8 @@ export default class LikeController implements LikeControllerI {
             app.put("/users/:uid/dislikes/:tid", LikeController.likeController.userTogglesTuitDislikes);
             app.get("/users/:uid/likes/:tid", LikeController.likeController.findUserLikesTuit);
             app.get("/users/:uid/dislikes/:tid", LikeController.likeController.findUserDislikesTuit);
+            app.get("/users/:uid/dislikes", LikeController.likeController.findAllTuitsDislikedByUser);
+
         }
         return LikeController.likeController;
     }
@@ -229,5 +231,20 @@ export default class LikeController implements LikeControllerI {
                 });
         }
 
+    }
+
+    findAllTuitsDislikedByUser = (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === "me" && profile ?
+            profile._id : uid;
+
+        LikeController.dislikeDao.findAllTuitsDislikedByUser(userId)
+            .then(dislikes => {
+                const dislikesNonNullTuits = dislikes.filter(dislike => dislike.tuit);
+                const tuitsFromDislikes = dislikesNonNullTuits.map(dislike => dislike.tuit);
+                res.json(tuitsFromDislikes);
+            });
     }
 };

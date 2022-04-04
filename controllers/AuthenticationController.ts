@@ -49,6 +49,31 @@ const AuthenticationController = (app: Express) => {
         }
     }
 
+    const googleLogin = async (req: Request, res: Response) => {
+        const newUser = req.body;
+        console.log('This is the user',newUser)
+        const password = newUser.password;
+        const hash = await bcrypt.hash(password, saltRounds);
+        newUser.password = hash;
+
+        const existingUser = await userDao
+            .findUserByUsername(req.body.username);
+        if (existingUser) {
+            existingUser.password = '*****';
+            // @ts-ignore
+            req.session['profile'] = existingUser;
+            res.json(existingUser);
+            console.log("I am reaching here creating the session");
+        } else {
+            const insertedUser = await userDao
+                .createUser(newUser);
+            insertedUser.password = '';
+            // @ts-ignore
+            req.session['profile'] = insertedUser;
+            res.json(insertedUser);
+        }
+    }
+
     /**
      * Create a new user and loads a session for that user
      * @param {Request} req Represents request from client, including the path

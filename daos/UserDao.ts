@@ -41,7 +41,7 @@ export default class UserDao implements UserDaoI {
      * @param {string} userId User's primary key
      * @returns Promise To be notified when user is retrieved from the database
      */
-    async findUserById(userId: string): Promise<User> {
+    async findUserById(userId: string): Promise<any> {
         return await UserModel.findById(userId);
     }
 

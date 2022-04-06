@@ -57,7 +57,7 @@ const AuthenticationController = (app: Express) => {
         newUser.password = hash;
 
         const existingUser = await userDao
-            .findUserByUsername(req.body.username);
+            .findUserByUsername(req.body.userName);
         if (existingUser) {
             existingUser.password = '*****';
             // @ts-ignore

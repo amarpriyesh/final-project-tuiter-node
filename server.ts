@@ -27,14 +27,14 @@ import SessionController from "./controllers/SessionController";
 
 var cors = require('cors'); //added
 const session = require("express-session");
-
-mongoose.connect('mongodb+srv://darshi24:'+process.env.TUITER_PASSWORD+'@tuiterclustera4.coyaj.mongodb.net/test');
+require('dotenv').config();
+mongoose.connect('mongodb+srv://finalproject:'+process.env.TUITER_PASSWORD+'@final-project.orngt.mongodb.net/tuiter?retryWrites=true&w=majority');
 
 const app = express();
 
 app.use(cors({
     credentials : true,
-    origin :'https://tiny-trifle-31e1c5.netlify.app'
+    origin : process.env.ORIGIN
 })); //added
 
 const SECRET = process.env.SECRET;

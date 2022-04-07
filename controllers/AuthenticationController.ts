@@ -57,7 +57,7 @@ const AuthenticationController = (app: Express) => {
         newUser.password = hash;
 
         const existingUser = await userDao
-            .findUserByUsername(req.body.username);
+            .findUserByUsername(req.body.userName);
         if (existingUser) {
             existingUser.password = '*****';
             // @ts-ignore
@@ -137,6 +137,7 @@ const AuthenticationController = (app: Express) => {
     app.post("/api/auth/register", register);
     app.post("/api/auth/profile", profile);
     app.post("/api/auth/logout", logout);
+    app.post("/api/auth/googleLogin", googleLogin);
 }
 
 export default AuthenticationController;

@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
    maritalStatus: {type: String, default: 'SINGLE', enum: ['MARRIED', 'SINGLE', 'WIDOWED']},
    biography: String,
    dateOfBirth: Date,
+   role: {type: String, default: 'NORMAL', enum: ['ADMIN', 'NORMAL']},
    joined: {type: Date, default: Date.now},
    location: {
         latitude : {type : Number, default : 0},

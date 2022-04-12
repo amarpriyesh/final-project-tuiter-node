@@ -5,6 +5,7 @@
 import User from "../models/User";
 import UserModel from "../mongoose/UserModel";
 import UserDaoI from "../interfaces/UserDaoI";
+import PrivilegeDao from "./PrivilegeDao";
 
 /**
  * @class UserDao Implements Data Access Object managing data storage
@@ -52,7 +53,10 @@ export default class UserDao implements UserDaoI {
      * @returns Promise To be notified when user is inserted into the database
      */
     async createUser(user: User): Promise<User> {
-        return await UserModel.create(user);
+
+        const tmpUser = await UserModel.create(user)
+        PrivilegeDao.getInstance().createPrivilege(tmpUser._id);
+        return tmpUser;
     }
 
     /**

@@ -14,6 +14,7 @@ import UserDaoI from "../interfaces/UserDaoI";
 export default class UserDao implements UserDaoI {
     private static userDao: UserDao | null = null;
 
+
     /**
      * Creates singleton DAO instance
      * @returns UserDao
@@ -104,4 +105,5 @@ export default class UserDao implements UserDaoI {
      */
     findUserByUsername = async (username: string): Promise<any> =>
         UserModel.findOne({userName : username});
+    // UserModel.findOne({userName});
 }

@@ -3,6 +3,7 @@
  */
 import {Request, Response, Express} from "express";
 import UserDao from "../daos/UserDao";
+import PrivilegeDao from "../daos/PrivilegeDao";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -38,8 +39,14 @@ const AuthenticationController = (app: Express) => {
         const existingUser = await userDao
             .findUserByUsername(username);
         const match = await bcrypt.compare(password, existingUser.password);
-
+        let allowSignInVal = true;
         if (match) {
+            const allowSignIn = await PrivilegeDao.getInstance().getPrivilegesUser(existingUser._id)
+            allowSignInVal=allowSignIn.allowSignIn;
+        }
+
+
+        if (match && allowSignInVal) {
             existingUser.password = '*****';
             // @ts-ignore
             req.session['profile'] = existingUser;
@@ -58,19 +65,30 @@ const AuthenticationController = (app: Express) => {
 
         const existingUser = await userDao
             .findUserByUsername(req.body.userName);
+        let allowSignInVal = true;
         if (existingUser) {
-            existingUser.password = '*****';
-            // @ts-ignore
-            req.session['profile'] = existingUser;
-            res.json(existingUser);
-            console.log("I am reaching here creating the session");
-        } else {
-            const insertedUser = await userDao
-                .createUser(newUser);
-            insertedUser.password = '';
-            // @ts-ignore
-            req.session['profile'] = insertedUser;
-            res.json(insertedUser);
+            const allowSignIn = await PrivilegeDao.getInstance().getPrivilegesUser(existingUser._id)
+            allowSignInVal=allowSignIn.allowSignIn;
+        }
+
+        if(allowSignInVal) {
+            if (existingUser) {
+                existingUser.password = '*****';
+                // @ts-ignore
+                req.session['profile'] = existingUser;
+                res.json(existingUser);
+                console.log("I am reaching here creating the session");
+            } else {
+                const insertedUser = await userDao
+                    .createUser(newUser);
+                insertedUser.password = '';
+                // @ts-ignore
+                req.session['profile'] = insertedUser;
+                res.json(insertedUser);
+            }
+        }
+        else {
+            res.sendStatus(403);
         }
     }
 

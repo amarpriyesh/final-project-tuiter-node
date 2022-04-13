@@ -34,6 +34,7 @@ export default interface User {
    accountType?: AccountType ,
    maritalStatus?: MaritalStatus,
    biography?: string ,
+   role?: string ,
    dateOfBirth?: Date ,
    joinedOn?: Date,
    location?: Location

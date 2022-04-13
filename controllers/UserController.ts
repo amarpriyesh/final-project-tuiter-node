@@ -3,6 +3,7 @@
  */
 import {Request, Response, Express} from "express";
 import UserDao from "../daos/UserDao";
+import PrivilegeDao from "../daos/PrivilegeDao";
 import UserControllerI from "../interfaces/UserControllerI";
 
 /**

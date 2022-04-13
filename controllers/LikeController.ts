@@ -6,6 +6,7 @@ import LikeDao from "../daos/LikeDao";
 import DislikeDao from "../daos/DislikeDao";
 import TuitDao from "../daos/TuitDao";
 import LikeControllerI from "../interfaces/LikeControllerI";
+import PrivilegeDao from "../daos/PrivilegeDao";
 
 /**
  * @class LikeController Implements RESTful Web service API for likes resource.
@@ -91,9 +92,13 @@ export default class LikeController implements LikeControllerI {
      * body formatted as JSON containing the new like instance that was inserted in the
      * database
      */
-    userLikesTuit = (req: Request, res: Response) =>
-        LikeController.likeDao.userLikesTuit(req.params.uid, req.params.tid)
-            .then(likes => res.json(likes));
+    userLikesTuit = async (req: Request, res: Response) => {
+
+
+            LikeController.likeDao.userLikesTuit(req.params.uid, req.params.tid)
+                .then(likes => res.json(likes));
+
+    }
 
     /**
      * Removes a like instance from the database
@@ -126,8 +131,12 @@ export default class LikeController implements LikeControllerI {
         let userId = req.params.uid === "me" && req.session['profile'] ?
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
-
-        if (userId === "me") {
+        let allowLikesTmp = true;
+        if(userId !== "me") {
+            const allowLikes = await PrivilegeDao.getInstance().getPrivilegesUser(userId)
+            allowLikesTmp= allowLikes.allowLikes;
+        }
+        if (userId === "me" || !allowLikesTmp) {
             res.sendStatus(503);
             return;
         }

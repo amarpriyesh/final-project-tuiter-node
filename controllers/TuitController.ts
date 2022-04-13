@@ -3,6 +3,7 @@
  */
 import {Request, Response, Express} from "express";
 import TuitDao from "../daos/TuitDao";
+import PrivilegeDao from "../daos/PrivilegeDao";
 import TuitControllerI from "../interfaces/TuitControllerI";
 import Tuit from "../models/Tuit";
 
@@ -80,6 +81,8 @@ export default class TuitController implements TuitControllerI {
         let userId = req.params.uid === "my" && req.session['profile'] ?
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
+
+
         if (userId === "my") {
             res.sendStatus(503);
             return;
@@ -97,13 +100,14 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON containing the new tuit that was inserted in the
      * database
      */
-    createTuit = (req: Request, res: Response) => {
+    createTuit = async (req: Request, res: Response) => {
         // @ts-ignore
         let userId = req.params.uid === "my" && req.session['profile'] ?
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
+        const allowTuits = await PrivilegeDao.getInstance().getPrivilegesUser(userId)
         console.log(userId);
-        if (userId === "my") {
+        if (userId === "my" || !allowTuits.allowTuits) {
             res.sendStatus(503);
             return;
         }

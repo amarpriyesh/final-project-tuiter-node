@@ -5,7 +5,9 @@
 import Tuit from "../models/Tuit";
 import Stats from "../models/Stats";
 import TuitModel from "../mongoose/TuitModel";
+import BoardModel from "../mongoose/TuitBoardMapModel";
 import TuitDaoI from "../interfaces/TuitDaoI";
+import TuitBoardMap from "../models/TuitBoardMap";
 
 /**
  * @class UserDao Implements Data Access Object managing data storage
@@ -74,7 +76,9 @@ export default class TuitDao implements TuitDaoI {
      * @returns Promise To be notified when tuit is removed from the database
      */
     async deleteTuit(tid: string):  Promise<any> {
+        await BoardModel.deleteMany({tuit: tid});
         return await TuitModel.deleteOne({_id: tid});
+
     }
 
     /**

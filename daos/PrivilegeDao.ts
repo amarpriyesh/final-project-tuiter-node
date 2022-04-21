@@ -41,9 +41,9 @@ export default class PrivilegeDao implements PrivilegeDaoI {
     }
 
 
-    async getPrivileges(): Promise<Privilege[]> {
+    async getPrivileges(): Promise<any> {
         console.log("Reahing here privilegesDao")
-        return await PrivilegeModel.find();
+        return await PrivilegeModel.find().populate("user").exec();
     }
 
     async getPrivilegesUser(uid: string): Promise<any> {

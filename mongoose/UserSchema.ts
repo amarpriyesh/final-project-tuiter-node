@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
    firstName: String,
    lastName: String,
    email: String,
-   profilePhoto: String,
+   profilePhoto: {type: String, default: "https://lh3.googleusercontent.com/a-/AOh14GjQfPMc4NY3II6wMKkbk9f3q13JDHVZAt2QqLM1=s96-c"},
    headerImage: String,
    accountType: {type: String, default: 'PERSONAL', enum: ['PERSONAL', 'ACADEMIC', 'PROFESSIONAL']},
    maritalStatus: {type: String, default: 'SINGLE', enum: ['MARRIED', 'SINGLE', 'WIDOWED']},

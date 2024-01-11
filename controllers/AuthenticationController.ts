@@ -6,6 +6,7 @@ import UserDao from "../daos/UserDao";
 import PrivilegeDao from "../daos/PrivilegeDao";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+require('dotenv').config();
 
 /**
  * @class AuthenticationController Implements RESTful Web service API for authentication requests.
@@ -78,6 +79,8 @@ const AuthenticationController = (app: Express) => {
                 req.session['profile'] = existingUser;
                 res.json(existingUser);
                 console.log("I am reaching here creating the session");
+                console.log(req.session)
+                console.log(process.env.ENVIRONMENT)
             } else {
                 const insertedUser = await userDao
                     .createUser(newUser);

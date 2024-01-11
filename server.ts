@@ -38,7 +38,7 @@ const app = express();
 
 app.use(cors({
     credentials : true,
-    origin : process.env.ORIGIN
+    origin : [process.env.ORIGIN, "http://167.172.153.35:3000"]
 })); //added
 
 const SECRET = process.env.SECRET;

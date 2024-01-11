@@ -21,8 +21,8 @@ export default class BoardController implements BoardControllerI{
             app.delete("/api/boards/:bid",BoardController.boardController.deleteBoard);
         }
         return BoardController.boardController;
-
     }
+
 
     private constructor () {}
 

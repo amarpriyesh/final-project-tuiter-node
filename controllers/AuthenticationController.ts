@@ -116,7 +116,9 @@ const AuthenticationController = (app: Express) => {
             insertedUser.password = '';
             // @ts-ignore
             req.session['profile'] = insertedUser;
-            res.json(insertedUser);
+            console.log("After session creation:", req.session);
+            console.log("After session creation:", req.session);
+            await res.json(insertedUser);
         }
     }
 

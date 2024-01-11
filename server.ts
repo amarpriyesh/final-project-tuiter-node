@@ -42,6 +42,8 @@ app.use(cors({
 })); //added
 
 const SECRET = process.env.SECRET;
+
+console.log(process.env.ENVIRONMENT)
 let sess = {
     secret : SECRET,
     saveUninitialized : true,
